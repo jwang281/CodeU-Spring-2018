@@ -16,13 +16,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodeU Chat App</title>
+  <title>Team int ellects; CodeU Chat App</title> <!-- added team name -->
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">Team int ellects; CodeU Chat App</a> <!-- added team name -->
     <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
@@ -64,6 +64,14 @@
         This page should also be used to describe the features and improvements
         you've added.
       </p>
+
+      <h1>About Team int ellects;</h1>
+      <h3>Our Members: Ivy, Jose, Marielle, and Silvie</h3>
+      <p>
+        Ivy is a junior at the University of Notre Dame.
+        Jose is studying computer science at Purdue University.
+        Marielle is a computer science student at Syracuse University. She sings, dances, and plays volleyball.
+        Silvie is a computer science and anthropology student at Wellesley College. She is involved with the jazz band and frisbee team.
     </div>
   </div>
 </body>
