@@ -30,7 +30,6 @@ public class RegisterServletTest
   public void testDoGet() throws IOException, ServletException 
   {
     registerServlet.doGet(mockRequest, mockResponse);
-    Mockito.verify(mockPrintWriter).println("<h1>RegisterServlet GET "
-      + "request.</h1>");
+    Mockito.verify(mockPrintWriter).println("<h1>RegisterServlet GET request.</h1>");
   }
 }
