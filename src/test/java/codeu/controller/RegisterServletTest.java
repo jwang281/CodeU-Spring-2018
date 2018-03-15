@@ -53,11 +53,44 @@ public class RegisterServletTest
   }
 
   @Test
-  public void testDoPost_NewUser() throws IOException, ServletException {
-    Mockito.when(mockRequest.getParameter("username")).thenReturn("test username");
+  public void testDoPost_BadUsername_2() throws IOException, ServletException {
+    Mockito.when(mockRequest.getParameter("username")).thenReturn("test_2_@@@");
+
+    registerServlet.doPost(mockRequest, mockResponse);
+
+    Mockito.verify(mockRequest)
+            .setAttribute("error", "Please enter only letters, numbers, and spaces.");
+    Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
+  }
+
+  @Test
+public void testDoPost_NewUser() throws IOException, ServletException {
+  Mockito.when(mockRequest.getParameter("username")).thenReturn("test username");
+
+  UserStore mockUserStore = Mockito.mock(UserStore.class);
+  Mockito.when(mockUserStore.isUserRegistered("test username")).thenReturn(false);
+  registerServlet.setUserStore(mockUserStore);
+
+  HttpSession mockSession = Mockito.mock(HttpSession.class);
+  Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
+
+  registerServlet.doPost(mockRequest, mockResponse);
+
+  ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
+
+  Mockito.verify(mockUserStore).addUser(userArgumentCaptor.capture());
+  Assert.assertEquals(userArgumentCaptor.getValue().getName(), "test username");
+
+  Mockito.verify(mockUserStore, Mockito.atLeastOnce()).addUser(Mockito.any(User.class));
+  Mockito.verify(mockResponse).sendRedirect("/login");
+}
+
+  @Test
+  public void testDoPost_NewUser_2() throws IOException, ServletException {
+    Mockito.when(mockRequest.getParameter("username")).thenReturn("test 2 username");
 
     UserStore mockUserStore = Mockito.mock(UserStore.class);
-    Mockito.when(mockUserStore.isUserRegistered("test username")).thenReturn(false);
+    Mockito.when(mockUserStore.isUserRegistered("test 2 username")).thenReturn(false);
     registerServlet.setUserStore(mockUserStore);
 
     HttpSession mockSession = Mockito.mock(HttpSession.class);
@@ -68,7 +101,7 @@ public class RegisterServletTest
     ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
 
     Mockito.verify(mockUserStore).addUser(userArgumentCaptor.capture());
-    Assert.assertEquals(userArgumentCaptor.getValue().getName(), "test username");
+    Assert.assertEquals(userArgumentCaptor.getValue().getName(), "test 2 username");
 
     Mockito.verify(mockUserStore, Mockito.atLeastOnce()).addUser(Mockito.any(User.class));
     Mockito.verify(mockResponse).sendRedirect("/login");
