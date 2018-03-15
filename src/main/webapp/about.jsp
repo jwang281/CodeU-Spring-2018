@@ -70,7 +70,7 @@
       <p>Ivy is a junior at the University of Notre Dame.</p>
       <p>Jose is studying computer science at Purdue University.</p>
       <p>Marielle is a computer science student at Syracuse University. 
-      	She sings, dances, and plays volleyball.</p>
+      	She sings, dances hip hop, and plays club volleyball. </p>
       <p>Silvie is a computer science and anthropology student at 
       	Wellesley College. She is involved with the jazz band and frisbee team.</p>
     </div>
