@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import codeu.model.data.User;
 import codeu.model.store.basic.UserStore;
-import com.sun.org.apache.regexp.internal.RE;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
