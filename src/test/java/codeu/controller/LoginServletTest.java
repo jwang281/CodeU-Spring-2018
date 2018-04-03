@@ -27,6 +27,7 @@ import com.google.appengine.repackaged.com.google.common.base.Verify;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
@@ -77,7 +78,7 @@ public class LoginServletTest {
 
     User mockUser = Mockito.mock(User.class);
     Mockito.when(mockUser.getName()).thenReturn("username_test");
-    Mockito.when(mockUser.getPassword()).thenReturn("valid_password");
+    Mockito.when(mockUser.getPassword()).thenReturn(BCrypt.hashpw("password", BCrypt.gensalt()));
 
     Mockito.when(mockRequest.getParameter("username")).thenReturn("username_test");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("invalid_password");
@@ -102,7 +103,7 @@ public class LoginServletTest {
 
     User mockUser = Mockito.mock(User.class);
     Mockito.when(mockUser.getName()).thenReturn("username_test");
-    Mockito.when(mockUser.getPassword()).thenReturn("valid_password");
+    Mockito.when(mockUser.getPassword()).thenReturn(BCrypt.hashpw("valid_password", BCrypt.gensalt()));
 
     Mockito.when(mockRequest.getParameter("username")).thenReturn("username_test");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("valid_password");
@@ -116,7 +117,7 @@ public class LoginServletTest {
     Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
 
     loginServlet.doPost(mockRequest, mockResponse);
-
+    
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }
 }
