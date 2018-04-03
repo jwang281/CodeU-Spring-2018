@@ -20,6 +20,7 @@ import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
+import com.vdurmont.emoji.EmojiParser;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -196,4 +197,5 @@ public class ChatServletTest {
 
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
   }
+
 }
