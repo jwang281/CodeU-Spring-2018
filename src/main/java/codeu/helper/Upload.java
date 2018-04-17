@@ -12,6 +12,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  This servlet handles the Blob upload to the datastore
+ *  it does a lot of behind the scenes work but it basically
+ *  takes the image file and transforms it into a blob with a
+ *  unique blobKey. Then it redirects to the Serve servlet
+ *  with the key to the uploaded image
+ * */
 
 public class Upload extends HttpServlet{
 

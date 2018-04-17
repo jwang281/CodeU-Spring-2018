@@ -15,6 +15,13 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
+/**
+ *  This servlet handles the Blob key uploaded to the datastore passed
+ *  by the Upload servlet. It retrieves the key and writes the url
+ *  back into the User data for profile picture. Then it redirects to
+ *  the ProfileServlet.
+ * */
+
 public class Serve extends HttpServlet {
 
     private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
