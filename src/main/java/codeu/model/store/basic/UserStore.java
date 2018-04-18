@@ -104,6 +104,11 @@ public class UserStore {
     persistentStorageAgent.writeThrough(user);
   }
 
+  /** Updates particular instance of user data. */
+  public void updateUserData(User user, String parameter, String value) {
+    persistentStorageAgent.updateUserData(user, parameter, value);
+  }
+
   /** Return true if the given username is known to the application. */
   public boolean isUserRegistered(String username) {
     for (User user : users) {
