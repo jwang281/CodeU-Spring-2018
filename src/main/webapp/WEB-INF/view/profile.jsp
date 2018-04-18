@@ -5,8 +5,8 @@
 
 <%
    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+   String profilePicUrl = (String) request.getAttribute("profilePic");
 %>
-
 <html>
 <head>
 
@@ -28,7 +28,7 @@
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } %>
-    <a href="/profile.jsp">Profile</a>
+    <a href="/profile">Profile</a>
   </nav>
 
   <div id="container">
@@ -38,6 +38,11 @@
       <% if(request.getSession().getAttribute("user") != null){ %>
         <h2><%= request.getSession().getAttribute("user") %></a>
       <% } %>
+        <br/>
+
+        <% if (profilePicUrl!=""){ %>
+         <img src="<%=profilePicUrl%>" >
+        <%}%>
 
         <p>Choose a profile picture</p>
 
