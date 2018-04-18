@@ -18,11 +18,8 @@ import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentDataStoreException;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.*;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +63,8 @@ public class PersistentDataStore {
         String userName = (String) entity.getProperty("username");
         String password = (String)entity.getProperty("password");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
-        User user = new User(uuid, userName, password, creationTime);
+        String profilePic = (String)entity.getProperty("profile_pic");
+        User user = new User(uuid, userName, password, creationTime, profilePic);
         users.add(user);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may
@@ -148,12 +146,25 @@ public class PersistentDataStore {
 
   /** Write a User object to the Datastore service. */
   public void writeThrough(User user) {
-    Entity userEntity = new Entity("chat-users");
+    Entity userEntity = new Entity("chat-users", user.getId().toString());
     userEntity.setProperty("uuid", user.getId().toString());
     userEntity.setProperty("username", user.getName());
     userEntity.setProperty("password", user.getPassword());
     userEntity.setProperty("creation_time", user.getCreationTime().toString());
+    userEntity.setProperty("profile_pic", user.getProfilePic());
     datastore.put(userEntity);
+  }
+
+  /** Updates a User object to the Datastore service. */
+  public void updateUserData(User user, String parameter, String value) {
+    Entity userEntity;
+    try {
+      userEntity = datastore.get(KeyFactory.createKey("chat-users", user.getId().toString()));
+      userEntity.setProperty(parameter, value);
+      datastore.put(userEntity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
   /** Write a Message object to the Datastore service. */
