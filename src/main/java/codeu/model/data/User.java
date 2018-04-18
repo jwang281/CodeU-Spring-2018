@@ -23,6 +23,7 @@ public class User {
   private final String name;
   private final String password;
   private final Instant creation;
+  private String profilePic;
 
   /**
    * Constructs a new User.
@@ -37,6 +38,25 @@ public class User {
     this.name = name;
 	this.password = password;
     this.creation = creation;
+    this.profilePic = "";
+  }
+
+  /** Overloaded Constructor */
+  /**
+   * Constructs a new User.
+   *
+   * @param id the ID of this User
+   * @param name the username of this User
+   * @param password the password of this User
+   * @param creation the creation time of this User
+   * @param profilePic the creation time of this User
+   */
+  public User(UUID id, String name, String password, Instant creation, String profilePic) {
+    this.id = id;
+    this.name = name;
+    this.password = password;
+    this.creation = creation;
+    this.profilePic = profilePic;
   }
 
   /** Returns the ID of this User. */
@@ -58,4 +78,12 @@ public class User {
   public Instant getCreationTime() {
     return creation;
   }
+
+  /** Returns the blobKey string of this User. */
+  public String getProfilePic() {
+    return profilePic;
+  }
+
+  /** Sets the blobKey string of this User. */
+  public void setProfilePic(String pictureKey){ this.profilePic = pictureKey;}
 }

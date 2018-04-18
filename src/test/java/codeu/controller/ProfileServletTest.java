@@ -1,5 +1,7 @@
 package codeu.controller;
 
+import codeu.model.data.User;
+import codeu.model.store.basic.UserStore;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -8,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ProfileServletTest {
@@ -30,7 +33,21 @@ public class ProfileServletTest {
     @Test
     public void testDoGet() throws IOException, ServletException
     {
+        User mockUser = Mockito.mock(User.class);
+        Mockito.when(mockUser.getName()).thenReturn("username_test");
+        Mockito.when(mockUser.getProfilePic()).thenReturn("profile_pic");
+
+        UserStore mockUserStore = Mockito.mock(UserStore.class);
+        Mockito.when(mockUserStore.getUser("username_test")).thenReturn(mockUser);
+        profileServlet.setUserStore(mockUserStore);
+
+        HttpSession mockSession = Mockito.mock(HttpSession.class);
+        Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
+
+        Mockito.when(mockRequest.getSession().getAttribute("user")).thenReturn("username_test");
+
         profileServlet.doGet(mockRequest, mockResponse);
+
         Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
     }
 }
