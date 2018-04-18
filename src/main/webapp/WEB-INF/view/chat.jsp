@@ -1,12 +1,9 @@
 <%--
   Copyright 2017 Google Inc.
-
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
      http://www.apache.org/licenses/LICENSE-2.0
-
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,6 +25,19 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <head>
   <title><%= conversation.getTitle() %></title>
   <link rel="stylesheet" href="/css/main.css" type="text/css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
+  <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
+
+  <!-- Emoji Data -->
+  <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.a.css">
+  <script type="text/javascript" src="/js/jquery.emojis.js"></script>
+
+  <script type="text/javascript">
+  	$(document).ready(function(e) {
+		$('#input-default').emojiPicker();
+	});
+  </script>
 
   <style>
     #chat {
@@ -87,7 +97,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <% if (request.getSession().getAttribute("user") != null) { %>
     <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" name="message">
+        <input type="text" id="input-default" class="emojiable-option" name="message">
         <br/>
         <button type="submit">Send</button>
     </form>
