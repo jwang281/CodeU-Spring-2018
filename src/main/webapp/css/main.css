@@ -56,3 +56,11 @@ input {
 button {
   font-size: 18px;
 }
+
+#previewBox {
+  background: white;
+  margin: 10px;  
+  width: 50%;
+  border: 2px;
+  border: gray;
+}

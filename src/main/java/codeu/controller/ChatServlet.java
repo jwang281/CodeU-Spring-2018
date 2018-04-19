@@ -30,6 +30,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.commonmark.node.*;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
 
 /** Servlet class responsible for the chat page. */
 public class ChatServlet extends HttpServlet {
@@ -140,15 +144,20 @@ public class ChatServlet extends HttpServlet {
 
     String messageContent = request.getParameter("message");
 
-    // this removes any HTML from the message content
+    // this removes any HTML from the message content    
     String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+    
+    Parser parser = Parser.builder().build();
+    Node document = parser.parse(cleanedMessageContent);
+    HtmlRenderer renderer = HtmlRenderer.builder().build();
+    String renderedMessage = renderer.render(document);
 
     Message message =
         new Message(
             UUID.randomUUID(),
             conversation.getId(),
             user.getId(),
-            cleanedMessageContent,
+            renderedMessage,
             Instant.now());
 
     messageStore.addMessage(message);

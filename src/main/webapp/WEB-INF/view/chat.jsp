@@ -87,10 +87,15 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <% if (request.getSession().getAttribute("user") != null) { %>
     <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" name="message">
+        <!-- <input type="text" name="message"> -->
+        <textarea name = "message" data-provide="markdown" rows = "10"></textarea>
         <br/>
-        <button type="submit">Send</button>
+        <button id = "sendButton" type="submit">Send</button>
+        <button id = "previewButton">Preview</button>
     </form>
+        
+    <div id ="previewBox">Click "Preview" to view your styled text here.</div>
+    
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
@@ -98,6 +103,5 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <hr/>
 
   </div>
-
 </body>
 </html>
