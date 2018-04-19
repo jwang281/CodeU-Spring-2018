@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+
+<%
+   BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+   String profilePicUrl = (String) request.getAttribute("profilePic");
+%>
 <html>
 <head>
 
@@ -26,9 +34,22 @@
   <div id="container">
     <div style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
       <h1>Profile</h1>
+
       <% if(request.getSession().getAttribute("user") != null){ %>
         <h2><%= request.getSession().getAttribute("user") %></a>
       <% } %>
+        <br/>
+
+        <% if (profilePicUrl!=""){ %>
+         <img src="<%=profilePicUrl%>" >
+        <%}%>
+
+        <p>Choose a profile picture</p>
+
+        <form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
+           <input type="file" name="myFile">
+           <input type="submit" value="Submit">
+        </form>
 
       <ul>
         <li>Bio: </li>

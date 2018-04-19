@@ -83,4 +83,23 @@
     <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>codeu.helper.Upload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Serve</servlet-name>
+    <servlet-class>codeu.helper.Serve</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Serve</servlet-name>
+    <url-pattern>/serve</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>
