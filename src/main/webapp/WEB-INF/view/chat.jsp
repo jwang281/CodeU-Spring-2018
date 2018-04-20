@@ -15,6 +15,9 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="com.vdurmont.emoji.EmojiParser" %>
+<%@ page import = "org.commonmark.node.*" %>
+<%@ page import = "org.commonmark.parser.Parser" %>
+<%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -83,7 +86,16 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         String author = UserStore.getInstance()
           .getUser(message.getAuthorId()).getName();
         String str = message.getContent();
-        String result = EmojiParser.parseToUnicode(str);	
+        
+        //This renders the text using the library added.
+        //The result (renderedMessage) is a string that 
+        //replaced the markdown syntax to the styles.
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(str);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String renderedMessage = renderer.render(document);
+        
+        String result = EmojiParser.parseToUnicode(renderedMessage);	
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  	
     %>
       <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
@@ -97,18 +109,13 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <% if (request.getSession().getAttribute("user") != null) { %>
     <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-<<<<<<< HEAD
+    
         <!-- <input type="text" name="message"> -->
-        <textarea name = "message" data-provide="markdown" rows = "10"></textarea>
-=======
-        <input type="text" id="input-default" class="emojiable-option" name="message">
->>>>>>> 1985dc56fe4e0a2a0e4d424049e09253a9226fbd
+        <input type = "text" id="input-default" class="emojiable-option" name="message">
+
         <br/>
         <button id = "sendButton" type="submit">Send</button>
-        <button id = "previewButton">Preview</button>
     </form>
-        
-    <div id ="previewBox">Click "Preview" to view your styled text here.</div>
     
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>

@@ -147,17 +147,12 @@ public class ChatServlet extends HttpServlet {
     // this removes any HTML from the message content    
     String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
     
-    Parser parser = Parser.builder().build();
-    Node document = parser.parse(cleanedMessageContent);
-    HtmlRenderer renderer = HtmlRenderer.builder().build();
-    String renderedMessage = renderer.render(document);
-
     Message message =
         new Message(
             UUID.randomUUID(),
             conversation.getId(),
             user.getId(),
-            renderedMessage,
+            cleanedMessageContent,
             Instant.now());
 
     messageStore.addMessage(message);
