@@ -198,4 +198,5 @@ public class ChatServletTest {
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
   }
 
+
 }

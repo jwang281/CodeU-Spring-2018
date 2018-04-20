@@ -15,6 +15,9 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="com.vdurmont.emoji.EmojiParser" %>
+<%@ page import = "org.commonmark.node.*" %>
+<%@ page import = "org.commonmark.parser.Parser" %>
+<%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -83,7 +86,16 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         String author = UserStore.getInstance()
           .getUser(message.getAuthorId()).getName();
         String str = message.getContent();
-        String result = EmojiParser.parseToUnicode(str);	
+        
+        //This renders the text using the library added.
+        //The result (renderedMessage) is a string that 
+        //replaced the markdown syntax to the styles.
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(str);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String renderedMessage = renderer.render(document);
+        
+        String result = EmojiParser.parseToUnicode(renderedMessage);	
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  	
     %>
       <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
@@ -97,10 +109,14 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <% if (request.getSession().getAttribute("user") != null) { %>
     <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" id="input-default" class="emojiable-option" name="message">
+    
+        <!-- <input type="text" name="message"> -->
+        <input type = "text" id="input-default" class="emojiable-option" name="message">
+
         <br/>
-        <button type="submit">Send</button>
+        <button id = "sendButton" type="submit">Send</button>
     </form>
+    
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
@@ -108,6 +124,5 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <hr/>
 
   </div>
-
 </body>
 </html>
