@@ -117,6 +117,18 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <button id = "sendButton" type="submit">Send</button>
     </form>
     
+    <span id = "key">
+      <p>
+      <center>
+      <u>Markdown Key</u>
+      <br>
+        **bold text** or __bold text__  &#8680; <b>bold text</b>
+        <br>
+        *italic text* or _italic text_  &#8680; <i>italic text</i>
+      </p>
+      </center>
+    </span>
+    
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
