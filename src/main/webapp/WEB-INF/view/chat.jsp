@@ -119,14 +119,14 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     
     <span id = "key">
       <p>
-      <center>
-      <u>Markdown Key</u>
+      Markdown Key
       <br>
-        **bold text** or __bold text__  &#8680; <b>bold text</b>
-        <br>
-        *italic text* or _italic text_  &#8680; <i>italic text</i>
+      **bold text** or __bold text__  &#8680; <b>bold text</b>
+      <br>
+      *italic text* or _italic text_  &#8680; <i>italic text</i>
+      <br>
+      <i>For more information please visit: </i> <a href = "http://commonmark.org/help/">Commonmark Help Page</a>
       </p>
-      </center>
     </span>
     
     <% } else { %>

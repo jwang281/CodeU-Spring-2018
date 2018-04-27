@@ -64,3 +64,8 @@ button {
   border: 2px;
   border: gray;
 }
+
+#key
+{
+  text-align: center;
+}
