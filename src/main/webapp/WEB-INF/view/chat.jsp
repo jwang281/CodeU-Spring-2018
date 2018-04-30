@@ -117,6 +117,18 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <button id = "sendButton" type="submit">Send</button>
     </form>
     
+    <span id = "key">
+      <p>
+      Markdown Key
+      <br>
+      **bold text** or __bold text__  &#8680; <b>bold text</b>
+      <br>
+      *italic text* or _italic text_  &#8680; <i>italic text</i>
+      <br>
+      <i>For more information please visit: </i> <a href = "http://commonmark.org/help/">Commonmark Help Page</a>
+      </p>
+    </span>
+    
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
