@@ -18,9 +18,12 @@
 <%@ page import = "org.commonmark.node.*" %>
 <%@ page import = "org.commonmark.parser.Parser" %>
 <%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
+<%@ page import = "org.apache.commons.validator.routines.UrlValidator"%>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
+String[] schemes = {"http","https"};
+UrlValidator urlValidator = new UrlValidator(schemes);
 %>
 
 <!DOCTYPE html>
@@ -86,7 +89,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         String author = UserStore.getInstance()
           .getUser(message.getAuthorId()).getName();
         String str = message.getContent();
-        
+        String messageId = message.getId().toString();
         //This renders the text using the library added.
         //The result (renderedMessage) is a string that 
         //replaced the markdown syntax to the styles.
@@ -96,10 +99,24 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         String renderedMessage = renderer.render(document);
         
         String result = EmojiParser.parseToUnicode(renderedMessage);	
-		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  	
-    %>
-      <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
-    <%
+		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);
+
+        //uses original str to validate url because the other strings contain extra stuff
+		if (urlValidator.isValid(str)) {
+		   %>
+              <li>
+                <strong><%= author %>:</strong>
+                <br/>
+                <span id="<%= messageId %>" >
+                    <img src="<%=str%>" onerror="document.getElementById('<%= messageId %>').innerHTML = '<%=str%>'" />
+                </span>
+              </li>
+           <%
+	    } else {
+          %>
+              <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
+          <%
+	    }
       }
     %>
       </ul>
