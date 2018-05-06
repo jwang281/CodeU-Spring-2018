@@ -18,6 +18,7 @@
 <%@ page import = "org.commonmark.node.*" %>
 <%@ page import = "org.commonmark.parser.Parser" %>
 <%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
+<%@ page import = "org.jsoup.Jsoup" %>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -26,11 +27,13 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset='utf-8'>
   <title><%= conversation.getTitle() %></title>
   <link rel="stylesheet" href="/css/main.css" type="text/css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
   <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
+  <script src="/js/talkify.js"></script>
 
   <!-- Emoji Data -->
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.a.css">
@@ -56,6 +59,15 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       var chatDiv = document.getElementById('chat');
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
+	function playMsg(m) {
+	  console.log('inside func');
+	  console.log(m);
+	  var msg = m.replace(/::/g, " ").replace(/:/g, "").replace(/_/g, " ")
+	  console.log(msg);
+	  var player = new talkify.Html5Player()
+	  player.playText(msg);
+	  console.log('finish func');
+	};
   </script>
 </head>
 <body onload="scrollChat()">
@@ -96,9 +108,10 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         String renderedMessage = renderer.render(document);
         
         String result = EmojiParser.parseToUnicode(renderedMessage);	
-		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  	
+		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  
+		String text = EmojiParser.parseToAliases(Jsoup.parse(renderedMessage).text());
     %>
-      <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
+      <li><strong><%= author %>:</strong> <%= resultDecimal %> <button onclick="playMsg('<%= text %>')">&#x1F50A;</button></li>
     <%
       }
     %>
