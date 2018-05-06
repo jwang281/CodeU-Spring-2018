@@ -102,7 +102,7 @@ UrlValidator urlValidator = new UrlValidator(schemes);
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);
 
         //uses original str to validate url because the other strings contain extra stuff
-		if (urlValidator.isValid(str)) {
+		if (urlValidator.isValid(str) && ( str.endsWith(".png") || str.endsWith(".jpg") || str.endsWith(".gif") ) ) {
 		   %>
               <li>
                 <strong><%= author %>:</strong>
