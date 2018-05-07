@@ -36,6 +36,12 @@ public class ProfileServlet extends HttpServlet{
 
         String username = (String)request.getSession().getAttribute("user");
 
+        if (username == null) {
+            // user is not logged in, don't let them see profile page
+            response.sendRedirect("/login");
+            return;
+        }
+
         String userPic = userStore.getUser(username).getProfilePic();
 
         request.setAttribute("profilePic", userPic);
