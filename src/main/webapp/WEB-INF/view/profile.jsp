@@ -47,7 +47,7 @@
         <p>Choose a profile picture</p>
 
         <form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
-           <input type="file" name="myFile">
+           <input type="file" name="myFile" accept="image/*">
            <input type="submit" value="Submit">
         </form>
 

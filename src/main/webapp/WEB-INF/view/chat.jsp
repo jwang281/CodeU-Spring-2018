@@ -19,11 +19,16 @@
 <%@ page import = "org.commonmark.parser.Parser" %>
 <%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
 <%@ page import = "org.apache.commons.validator.routines.UrlValidator"%>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
 String[] schemes = {"http","https"};
 UrlValidator urlValidator = new UrlValidator(schemes);
+BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
 %>
 
 <!DOCTYPE html>
@@ -102,7 +107,7 @@ UrlValidator urlValidator = new UrlValidator(schemes);
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);
 
         //uses original str to validate url because the other strings contain extra stuff
-		if (urlValidator.isValid(str) && ( str.endsWith(".png") || str.endsWith(".jpg") || str.endsWith(".gif") ) ) {
+		if (urlValidator.isValid(str)) {
 		   %>
               <li>
                 <strong><%= author %>:</strong>
@@ -132,6 +137,11 @@ UrlValidator urlValidator = new UrlValidator(schemes);
 
         <br/>
         <button id = "sendButton" type="submit">Send</button>
+    </form>
+
+    <form action="<%= blobstoreService.createUploadUrl(chatUploadUrl) %>" method="POST" enctype="multipart/form-data">
+      <input type="file" name="myFileFromChat" accept="image/*">
+      <input type="submit" value="Submit">
     </form>
     
     <span id = "key">
