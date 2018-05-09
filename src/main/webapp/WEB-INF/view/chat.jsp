@@ -107,7 +107,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);
 
         //uses original str to validate url because the other strings contain extra stuff
-		if (urlValidator.isValid(str)) {
+		if (urlValidator.isValid(str) || str.contains("http://localhost:8080/_ah/img/") ) {
 		   %>
               <li>
                 <strong><%= author %>:</strong>
