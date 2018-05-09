@@ -45,7 +45,6 @@ public class Serve extends HttpServlet {
 
         BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
 
-        blobstoreService.serve(blobKey, res);
 
         String username = (String) req.getSession().getAttribute("user");
 
