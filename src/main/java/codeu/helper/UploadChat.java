@@ -78,30 +78,6 @@ public class UploadChat extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-
-        String requestUrl = request.getRequestURI();
-        String conversationTitle = requestUrl.substring("/uploadchat/".length());
-
-        Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
-        if (conversation == null) {
-            // couldn't find conversation, redirect to conversation list
-            System.out.println("Conversation was null: " + conversationTitle);
-            response.sendRedirect("/conversations");
-            return;
-        }
-
-        UUID conversationId = conversation.getId();
-
-        List<Message> messages = messageStore.getMessagesInConversation(conversationId);
-
-        request.setAttribute("conversation", conversation);
-        request.setAttribute("messages", messages);
-        request.getRequestDispatcher("/WEB-INF/view/chat.jsp").forward(request, response);
-    }
-
-    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
