@@ -72,7 +72,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
     <a id="navTitle" href="/">CodeU Chat App</a>
     <a href="/conversations">Conversations</a>
       <% if (request.getSession().getAttribute("user") != null) { %>
-    <a href="/profile">Hello <%= request.getSession().getAttribute("user") %>!</a>
+    <a href="/profile/<%=request.getSession().getAttribute("user")%>">Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } else { %>
       <a href="/login">Login</a>
       <a href = "/register">Register</a>
@@ -110,7 +110,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
 		if (urlValidator.isValid(str) || str.contains("http://localhost:8080/_ah/img/") ) {
 		   %>
               <li>
-                <strong><%= author %>:</strong>
+                <a href="/profile/<%=author%>"><strong><%= author %>:</strong></a>
                 <br/>
                 <span id="<%= messageId %>" >
                     <img src="<%=str%>" onerror="document.getElementById('<%= messageId %>').innerHTML = '<%=str%>'" />
@@ -119,7 +119,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
            <%
 	    } else {
           %>
-              <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
+              <li><a href="/profile/<%=author%>"><strong><%= author %>:</strong></a> <%= resultDecimal %> </li>
           <%
 	    }
       }
