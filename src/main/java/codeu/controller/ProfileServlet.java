@@ -1,5 +1,6 @@
 package codeu.controller;
 
+import codeu.model.data.User;
 import codeu.model.store.basic.UserStore;
 
 import javax.servlet.ServletException;
@@ -34,8 +35,10 @@ public class ProfileServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+       String requestUrl = request.getRequestURI();
+       String profileUserTitle = requestUrl.substring("/profile/".length());
 
-        String username = (String)request.getSession().getAttribute("user");
+       String username = (String)request.getSession().getAttribute("user");
 
         if (username == null) {
             // user is not logged in, don't let them see profile page
@@ -43,12 +46,17 @@ public class ProfileServlet extends HttpServlet{
             return;
         }
 
-        String userPic = userStore.getUser(username).getProfilePic();
+        User currentUser = userStore.getUser(username); //Current user navigating the app
+
+        User displayUser = userStore.getUser(profileUserTitle); //Display user to show profile
+        String userPic = userStore.getUser(profileUserTitle).getProfilePic();
+
         request.setAttribute("profilePic", userPic);
+        request.setAttribute("currentUser", currentUser);
+        request.setAttribute("displayUser", displayUser);
 
-        String userBio = userStore.getUser(username).getUserBio();
+        String userBio = userStore.getUser(profileUserTitle).getUserBio();
         request.setAttribute("bio", userBio);
-
 
         request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
 
@@ -64,7 +72,7 @@ public class ProfileServlet extends HttpServlet{
         user.setUserBio(bio);
         userStore.updateUserData(user, "bio", bio);
 
-        response.sendRedirect("/profile");
+        response.sendRedirect("/profile/" + username);
     }
 
 }
