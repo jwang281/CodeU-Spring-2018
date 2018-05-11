@@ -60,16 +60,16 @@
 
     <p>Bio: </p>
     <p><font size="4">${bio}</font></p>
-       <% if(request.getSession().getAttribute("user") != null){ %>
-               <h2><%= request.getSession().getAttribute("user") %></a>
-       <% } %>
+
        <% if (bioUrl != ""){ %>
-         <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
-                <input type="text" id="input-bio" class="emojiable-option" name="bio" >
-                <button type="submit">Save Bio</button>
-          </form>
-          <% } else { %>
-            <p><a href="/login">Login</a> to update profile.</p>
+
+         <% if ( currentUser.getName().equals(displayUser.getName()) ){ %>
+             <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
+                  <input type="text" id="input-bio" class="emojiable-option" name="bio" >
+                  <button type="submit">Save Bio</button>
+              </form>
+          <%}%>
+
           <% } %>
 
     </div>

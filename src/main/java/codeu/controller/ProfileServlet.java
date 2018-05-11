@@ -55,7 +55,7 @@ public class ProfileServlet extends HttpServlet{
         request.setAttribute("currentUser", currentUser);
         request.setAttribute("displayUser", displayUser);
 
-        String userBio = userStore.getUser(username).getUserBio();
+        String userBio = userStore.getUser(profileUserTitle).getUserBio();
         request.setAttribute("bio", userBio);
 
         request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
@@ -72,7 +72,7 @@ public class ProfileServlet extends HttpServlet{
         user.setUserBio(bio);
         userStore.updateUserData(user, "bio", bio);
 
-        response.sendRedirect("/profile");
+        response.sendRedirect("/profile/" + username);
     }
 
 }
