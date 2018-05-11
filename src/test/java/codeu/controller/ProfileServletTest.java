@@ -50,6 +50,12 @@ public class ProfileServletTest {
         Mockito.when(mockRequest.getParameter("requestUrl")).thenReturn("/profile/username_test");
         Mockito.when(mockRequest.getParameter("profileUserTitle")).thenReturn("username_test");
         Mockito.when(mockSession.getAttribute("user")).thenReturn("username_test");
+=======
+        Mockito.when(mockUser.getName()).thenReturn("username_test");
+        Mockito.when(mockUser.getProfilePic()).thenReturn("profile_pic");
+        Mockito.when(mockUser.getUserBio()).thenReturn("bio");
+
+>>>>>>> ab1911bf2eabf0cf0e03c7e2cec0371d2989c8f1
 
         UserStore mockUserStore = Mockito.mock(UserStore.class);
         Mockito.when(mockUserStore.getUser("username_test")).thenReturn(mockUser);
