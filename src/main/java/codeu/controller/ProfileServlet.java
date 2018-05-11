@@ -54,13 +54,10 @@ public class ProfileServlet extends HttpServlet{
         request.setAttribute("profilePic", userPic);
         request.setAttribute("currentUser", currentUser);
         request.setAttribute("displayUser", displayUser);
-=======
-        String userPic = userStore.getUser(username).getProfilePic();
-        request.setAttribute("profilePic", userPic);
 
         String userBio = userStore.getUser(username).getUserBio();
         request.setAttribute("bio", userBio);
->>>>>>> ab1911bf2eabf0cf0e03c7e2cec0371d2989c8f1
+
         request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
 
     }
