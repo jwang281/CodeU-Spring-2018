@@ -27,9 +27,8 @@
     <a id="navTitle" href="/">CodeU Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
-      <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/profile">Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } %>
-    <a href="/profile">Profile</a>
   </nav>
 
   <div id="container">
@@ -48,7 +47,7 @@
         <p>Choose a profile picture</p>
 
         <form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
-           <input type="file" name="myFile">
+           <input type="file" name="myFile" accept="image/*">
            <input type="submit" value="Submit">
         </form>
 
