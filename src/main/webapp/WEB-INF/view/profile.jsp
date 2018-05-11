@@ -2,10 +2,11 @@
 
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
-
+<%@ page import="codeu.model.data.User" %>
 <%
    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
    String profilePicUrl = (String) request.getAttribute("profilePic");
+   String bioUrl = (String) request.getAttribute("bio");
 %>
 <html>
 <head>
@@ -51,10 +52,20 @@
            <input type="submit" value="Submit">
         </form>
 
-      <ul>
-        <li>Bio: </li>
-        <li>Status: </li>
-      </ul>
+    <p>Bio: </p>
+    <p><font size="4">${bio}</font></p>
+       <% if(request.getSession().getAttribute("user") != null){ %>
+               <h2><%= request.getSession().getAttribute("user") %></a>
+       <% } %>
+       <% if (bioUrl != ""){ %>
+         <form action="/profile" method="post">
+                <input type="text" id="input-bio" class="emojiable-option" name="bio" >
+                <button type="submit">Save Bio</button>
+          </form>
+          <% } else { %>
+            <p><a href="/login">Login</a> to update profile.</p>
+          <% } %>
+
 
     </div>
   </div>
