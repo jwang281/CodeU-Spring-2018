@@ -3,19 +3,19 @@
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 <%@ page import="codeu.model.data.User" %>
-<<<<<<< HEAD
+
 
 <%
    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
    String profilePicUrl = (String) request.getAttribute("profilePic");
    User currentUser = (User) request.getAttribute("currentUser");
    User displayUser = (User) request.getAttribute("displayUser");
-=======
+
 <%
    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
    String profilePicUrl = (String) request.getAttribute("profilePic");
    String bioUrl = (String) request.getAttribute("bio");
->>>>>>> ab1911bf2eabf0cf0e03c7e2cec0371d2989c8f1
+
 %>
 <html>
 <head>
@@ -67,7 +67,7 @@
         <li>Bio: </li>
         <li>Status: </li>
       </ul>
-=======
+
     <p>Bio: </p>
     <p><font size="4">${bio}</font></p>
        <% if(request.getSession().getAttribute("user") != null){ %>
@@ -82,7 +82,7 @@
             <p><a href="/login">Login</a> to update profile.</p>
           <% } %>
 
->>>>>>> ab1911bf2eabf0cf0e03c7e2cec0371d2989c8f1
+
 
     </div>
   </div>
