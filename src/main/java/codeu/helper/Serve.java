@@ -55,6 +55,6 @@ public class Serve extends HttpServlet {
 
         userStore.updateUserData(user, "profile_pic", servingUrl);
 
-        res.sendRedirect("/profile");
+        res.sendRedirect("/profile/" + username);
     }
 }

@@ -26,7 +26,7 @@
     <img src = "https://drive.google.com/uc?id=1dG9V-sBNMS9hEivT4L-sn1M0m7RIn0Gr" width="160" height="80" /></a>
     <a href="/conversations"> Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
-      <a href="/profile">Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/profile/<%=request.getSession().getAttribute("user")%>">Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } else{ %>
       <a href="/login">Login</a>
       <a href = "/register">Register</a>
