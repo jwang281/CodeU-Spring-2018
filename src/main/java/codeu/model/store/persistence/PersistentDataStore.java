@@ -64,7 +64,8 @@ public class PersistentDataStore {
         String password = (String)entity.getProperty("password");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String profilePic = (String)entity.getProperty("profile_pic");
-        User user = new User(uuid, userName, password, creationTime, profilePic);
+        String bio = (String)entity.getProperty("bio");
+        User user = new User(uuid, userName, password, creationTime, profilePic, bio);
         users.add(user);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may

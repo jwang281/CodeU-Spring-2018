@@ -36,6 +36,8 @@ public class ProfileServletTest {
         User mockUser = Mockito.mock(User.class);
         Mockito.when(mockUser.getName()).thenReturn("username_test");
         Mockito.when(mockUser.getProfilePic()).thenReturn("profile_pic");
+        Mockito.when(mockUser.getUserBio()).thenReturn("bio");
+
 
         UserStore mockUserStore = Mockito.mock(UserStore.class);
         Mockito.when(mockUserStore.getUser("username_test")).thenReturn(mockUser);

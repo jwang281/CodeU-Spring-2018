@@ -22,8 +22,9 @@
 <body>
 
   <nav>
-    <a id="navTitle" href="/">Team int ellects; CodeU Chat App</a> 
-    <a href="/conversations">Conversations</a>
+    <a id="navTitle" href="/">
+    <img src = "https://drive.google.com/uc?id=1dG9V-sBNMS9hEivT4L-sn1M0m7RIn0Gr" width="160" height="80" /></a>
+    <a href="/conversations"> Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a href="/profile">Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } else{ %>
@@ -34,23 +35,23 @@
     <a href="/testdata">Load Test Data</a>
   </nav>
 
-  <div id="container">
+  <div id="container"><center>
     <div
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
-
-      <h1>Team int ellects; CodeU Chat App</h1>
-      <h2>Welcome!</h2>
-
-      <ul>
-        <li><a href="/login">Login</a> to get started.</li>
-        <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
-        <li>View the <a href="/about.jsp">about</a> page to learn more about the
-            project.</li>
-        <li>You can <a href="/testdata">load test data</a> to fill the site with
-            example data.</li>
-      </ul>
     </div>
-  </div>
+
+      <h1><img src = "homepage.gif"/>  </h1>
+      <a href="/login">
+      <img src = "https://drive.google.com/uc?id=1_bC0JRRBB5Gm2P8MxaFtd5IFeLIKjPkb" /></a>
+      <a href="/conversations">
+      <img src = "https://drive.google.com/uc?id=1L2fNzsLRiZFappZflKpEsbdHObLwEAb8 "/></a>
+      <a href="/about.jsp">
+      <img src = "https://drive.google.com/uc?id=1h10kd1nXgN4e3URjaazEqS5cwCru0id5" /></a>
+      <a href="/testdata">
+      <img src = "https://drive.google.com/uc?id=1n8h9a3p_enwmREP7LBKI8ZOtgl-4i1Cr" /></a>
+      </center>
+ </div>
+
+
 </body>
 </html>
