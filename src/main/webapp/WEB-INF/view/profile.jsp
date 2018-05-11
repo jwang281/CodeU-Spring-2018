@@ -10,12 +10,7 @@
    String profilePicUrl = (String) request.getAttribute("profilePic");
    User currentUser = (User) request.getAttribute("currentUser");
    User displayUser = (User) request.getAttribute("displayUser");
-
-<%
-   BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-   String profilePicUrl = (String) request.getAttribute("profilePic");
    String bioUrl = (String) request.getAttribute("bio");
-
 %>
 <html>
 <head>
