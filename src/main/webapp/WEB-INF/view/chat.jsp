@@ -39,6 +39,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
   <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <!-- Emoji Data -->
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.a.css">
@@ -69,7 +70,8 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
 <body onload="scrollChat()">
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">
+    <img src = "https://drive.google.com/uc?id=1dG9V-sBNMS9hEivT4L-sn1M0m7RIn0Gr" width="160" height="80" /></a>
     <a href="/conversations">Conversations</a>
       <% if (request.getSession().getAttribute("user") != null) { %>
     <a href="/profile/<%=request.getSession().getAttribute("user")%>">Hello <%= request.getSession().getAttribute("user") %>!</a>
@@ -136,7 +138,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
         <input type = "text" id="input-default" class="emojiable-option" name="message">
 
         <br/>
-        <button id = "sendButton" type="submit">Send</button>
+        <button type="submit"class="w3-btn w3-green">Send</button>
     </form>
 
     <form action="<%= blobstoreService.createUploadUrl(chatUploadUrl) %>" method="POST" enctype="multipart/form-data">
