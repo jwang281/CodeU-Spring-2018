@@ -80,7 +80,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ProfileServlet</servlet-name>
-    <url-pattern>/profile</url-pattern>
+    <url-pattern>/profile/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -90,6 +90,15 @@
   <servlet-mapping>
     <servlet-name>Upload</servlet-name>
     <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UploadChat</servlet-name>
+    <servlet-class>codeu.helper.UploadChat</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadChat</servlet-name>
+    <url-pattern>/uploadchat/*</url-pattern>
   </servlet-mapping>
 
   <servlet>

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import codeu.model.data.User;
 import codeu.model.store.basic.UserStore;
 import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
@@ -23,8 +21,6 @@ import com.google.appengine.api.images.ServingUrlOptions;
  * */
 
 public class Serve extends HttpServlet {
-
-    private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
     /** Store class that gives access to Users. */
     private UserStore userStore;
@@ -45,7 +41,6 @@ public class Serve extends HttpServlet {
 
         BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
 
-        blobstoreService.serve(blobKey, res);
 
         String username = (String) req.getSession().getAttribute("user");
 
@@ -60,6 +55,6 @@ public class Serve extends HttpServlet {
 
         userStore.updateUserData(user, "profile_pic", servingUrl);
 
-        res.sendRedirect("/profile");
+        res.sendRedirect("/profile/" + username);
     }
 }

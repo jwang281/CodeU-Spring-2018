@@ -64,7 +64,9 @@ public class PersistentDataStore {
         String password = (String)entity.getProperty("password");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String profilePic = (String)entity.getProperty("profile_pic");
-        User user = new User(uuid, userName, password, creationTime, profilePic);
+        String bio = (String)entity.getProperty("bio");
+        String status = (String)entity.getProperty("status");
+        User user = new User(uuid, userName, password, creationTime, profilePic, bio, status);
         users.add(user);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may
@@ -121,7 +123,7 @@ public class PersistentDataStore {
     List<Message> messages = new ArrayList<>();
 
     // Retrieve all messages from the datastore.
-    Query query = new Query("chat-messages");
+    Query query = new Query("chat-messages").addSort("creation_time", Query.SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
