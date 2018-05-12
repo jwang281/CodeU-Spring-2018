@@ -21,6 +21,7 @@
 <head>
   <title>Conversations</title>
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
@@ -37,28 +38,27 @@
     <a href="/about.jsp">About</a>
   </nav>
 
-  <div id="container">
+  <div id="container" class= "w3-container w3-dark-grey">
 
     <% if(request.getAttribute("error") != null){ %>
         <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
     <% if(request.getSession().getAttribute("user") != null){ %>
-      <h1>New Conversation</h1>
+     <h1><img src = "https://drive.google.com/uc?id=1myEGe30NZGofgyzfSut3qKH4yCW0Cp6A" width="222" height="75" /></h1>
       <form action="/conversations" method="POST">
           <div class="form-group">
             <label class="form-control-label">Title:</label>
           <input type="text" name="conversationTitle" required>
         </div>
-
-        <button type="submit">Create</button>
+        <br>
+        <button type="submit"class="w3-btn w3-green">Create</button>
       </form>
 
       <hr/>
     <% } %>
 
-    <h1>Conversations</h1>
-
+    <h1><img src = "https://drive.google.com/uc?id=1Y99iTNY1ll3DupF2_bTauz0Bd1IE9PT8" width="222" height="75"/></h1>
     <%
     List<Conversation> conversations =
       (List<Conversation>) request.getAttribute("conversations");
@@ -69,7 +69,7 @@
     }
     else{
     %>
-      <ul class="mdl-list">
+      <ul style="list-style-type:none" >
     <%
       for(Conversation conversation : conversations){
     %>

@@ -32,7 +32,6 @@
       <a href = "/register">Register</a>
     <% } %>
     <a href="/about.jsp">About</a>
-    <a href="/testdata">Load Test Data</a>
   </nav>
 
   <div id="container"><center>
@@ -47,8 +46,8 @@
       <img src = "https://drive.google.com/uc?id=1L2fNzsLRiZFappZflKpEsbdHObLwEAb8 "/></a>
       <a href="/about.jsp">
       <img src = "https://drive.google.com/uc?id=1h10kd1nXgN4e3URjaazEqS5cwCru0id5" /></a>
-      <a href="/testdata">
-      <img src = "https://drive.google.com/uc?id=1n8h9a3p_enwmREP7LBKI8ZOtgl-4i1Cr" /></a>
+      <a href="/register">
+      <img src = "https://drive.google.com/uc?id=1OyLL7LHdWOn5I2SzKsidNKcVTUKJF9VE" /></a>
       </center>
  </div>
 

@@ -25,7 +25,7 @@ public class User {
   private final Instant creation;
   private String profilePic;
   private String bio;
-
+  private String status;
 
   /**
    * Constructs a new User.
@@ -42,7 +42,7 @@ public class User {
     this.creation = creation;
     this.profilePic = "";
     this.bio = "";
-
+    this.status = "";
   }
 
   /** Overloaded Constructor */
@@ -55,14 +55,14 @@ public class User {
    * @param creation the creation time of this User
    * @param profilePic the creation time of this User
    */
-  public User(UUID id, String name, String password, Instant creation, String profilePic, String bio) {
+  public User(UUID id, String name, String password, Instant creation, String profilePic, String bio, String status) {
     this.id = id;
     this.name = name;
     this.password = password;
     this.creation = creation;
     this.profilePic = profilePic;
     this.bio = bio;
-
+    this.status = status;
   }
 
   /** Returns the ID of this User. */
@@ -97,5 +97,8 @@ public class User {
 
   public void setUserBio(String bioKey){ this.bio = bioKey;}
 
+  public String getUserStatus() { return status;  }
+
+  public void setUserStatus(String statusKey){ this.status = statusKey;}
 
 }

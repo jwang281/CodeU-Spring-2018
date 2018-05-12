@@ -58,6 +58,9 @@ public class ProfileServlet extends HttpServlet{
         String userBio = userStore.getUser(profileUserTitle).getUserBio();
         request.setAttribute("bio", userBio);
 
+        String userStatus = userStore.getUser(profileUserTitle).getUserStatus();
+        request.setAttribute("status", userStatus);
+
         request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
 
     }
@@ -67,10 +70,17 @@ public class ProfileServlet extends HttpServlet{
             throws IOException, ServletException {
         String username = (String) request.getSession().getAttribute("user");
         User user = userStore.getUser(username);
-
+        String status = request.getParameter("status");
         String bio = request.getParameter("bio");
-        user.setUserBio(bio);
-        userStore.updateUserData(user, "bio", bio);
+
+        if(status == null){
+            user.setUserBio(bio);
+            userStore.updateUserData(user, "bio", bio);}
+
+        if(bio == null){
+            user.setUserStatus(status);
+            userStore.updateUserData(user, "status", status);}
+
 
         response.sendRedirect("/profile/" + username);
     }
