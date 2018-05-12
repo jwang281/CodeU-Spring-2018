@@ -85,8 +85,10 @@
     <hr/>
   </div>
 
-   var encodedMsg = $('<div />').text(message).html();
-   $('#container').html(encodedMsg);
-   
+    <script type="text/javascript">
+        var encodedMsg = $('<div />').text(message).html();
+        $('#container').html(encodedMsg);
+    </script>
+
 </body>
 </html>
