@@ -62,31 +62,21 @@
 
     <p>Bio: </p>
     <p><font size="4">${bio}</font></p>
-
-       <% if (bioUrl != ""){ %>
-
-         <% if ( currentUser.getName().equals(displayUser.getName()) ){ %>
-             <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
-                  <input type="text" id="input-bio" class="emojiable-option" name="bio" >
-                  <button type="submit">Save Bio</button>
-              </form>
-          <%}%>
-
-          <% } %>
+    <% if ( currentUser.getName().equals(displayUser.getName()) ){ %>
+         <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
+              <input type="text" id="input-bio" class="emojiable-option" name="bio" >
+              <button type="submit">Save Bio</button>
+          </form>
+    <% } %>
 
     <p>Status: </p>
     <p><font size="4">${status}</font></p>
-
-       <% if (statusUrl != ""){ %>
-
-         <% if ( currentUser.getName().equals(displayUser.getName()) ){ %>
-             <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
-                  <input type="text" id="input-status" class="emojiable-option" name="status" >
-                  <button type="submit">Post Status</button>
-              </form>
-          <%}%>
-
-          <% } %>
+    <% if ( currentUser.getName().equals(displayUser.getName()) ){ %>
+         <form action="/profile/<%=request.getSession().getAttribute("user")%>" method="post">
+              <input type="text" id="input-status" class="emojiable-option" name="status" >
+              <button type="submit">Post Status</button>
+          </form>
+    <%}%>
     </div>
   </div>
 </body>
