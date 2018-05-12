@@ -60,13 +60,9 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
 	function playMsg(m) {
-	  console.log('inside func');
-	  console.log(m);
 	  var msg = m.replace(/::/g, " ").replace(/:/g, "").replace(/_/g, " ")
-	  console.log(msg);
 	  var player = new talkify.Html5Player()
 	  player.playText(msg);
-	  console.log('finish func');
 	};
   </script>
 </head>
