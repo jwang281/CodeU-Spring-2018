@@ -18,31 +18,19 @@
 <%@ page import = "org.commonmark.node.*" %>
 <%@ page import = "org.commonmark.parser.Parser" %>
 <%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
-<%@ page import = "org.jsoup.Jsoup" %>
-<%@ page import = "org.apache.commons.validator.routines.UrlValidator"%>
-<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
-<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
-
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
-String[] schemes = {"http","https"};
-UrlValidator urlValidator = new UrlValidator(schemes);
-BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
   <title><%= conversation.getTitle() %></title>
   <link rel="stylesheet" href="/css/main.css" type="text/css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
   <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
-  <script src="/js/talkify.js"></script>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <!-- Emoji Data -->
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.a.css">
@@ -68,21 +56,15 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
       var chatDiv = document.getElementById('chat');
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
-	function playMsg(m) {
-	  var msg = m.replace(/::/g, " ").replace(/:/g, "").replace(/_/g, " ")
-	  var player = new talkify.Html5Player()
-	  player.playText(msg);
-	};
   </script>
 </head>
 <body onload="scrollChat()">
 
   <nav>
-    <a id="navTitle" href="/">
-    <img src = "https://drive.google.com/uc?id=1dG9V-sBNMS9hEivT4L-sn1M0m7RIn0Gr" width="160" height="80" /></a>
+    <a id="navTitle" href="/">CodeU Chat App</a>
     <a href="/conversations">Conversations</a>
       <% if (request.getSession().getAttribute("user") != null) { %>
-    <a href="/profile/<%=request.getSession().getAttribute("user")%>">Hello <%= request.getSession().getAttribute("user") %>!</a>
+    <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } else { %>
       <a href="/login">Login</a>
       <a href = "/register">Register</a>
@@ -104,7 +86,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
         String author = UserStore.getInstance()
           .getUser(message.getAuthorId()).getName();
         String str = message.getContent();
-        String messageId = message.getId().toString();
+        
         //This renders the text using the library added.
         //The result (renderedMessage) is a string that 
         //replaced the markdown syntax to the styles.
@@ -114,27 +96,10 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
         String renderedMessage = renderer.render(document);
         
         String result = EmojiParser.parseToUnicode(renderedMessage);	
-		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  
-		String text = EmojiParser.parseToAliases(Jsoup.parse(renderedMessage).text());
+		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  	
     %>
-      <li><strong><%= author %>:</strong> <%= resultDecimal %> <button onclick="playMsg('<%= text %>')">&#x1F50A;</button></li>
+      <li><strong><%= author %>:</strong> <%= resultDecimal %> </li>
     <%
-        //uses original str to validate url because the other strings contain extra stuff
-		if (urlValidator.isValid(str) || str.contains("http://localhost:8080/_ah/img/") ) {
-		   %>
-              <li>
-                <a href="/profile/<%=author%>"><strong><%= author %>:</strong></a>
-                <br/>
-                <span id="<%= messageId %>" >
-                    <img src="<%=str%>" onerror="document.getElementById('<%= messageId %>').innerHTML = '<%=str%>'" />
-                </span>
-              </li>
-           <%
-	    } else {
-          %>
-              <li><a href="/profile/<%=author%>"><strong><%= author %>:</strong></a> <%= resultDecimal %> </li>
-          <%
-	    }
       }
     %>
       </ul>
@@ -149,12 +114,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
         <input type = "text" id="input-default" class="emojiable-option" name="message">
 
         <br/>
-        <button type="submit"class="w3-btn w3-green">Send</button>
-    </form>
-
-    <form action="<%= blobstoreService.createUploadUrl(chatUploadUrl) %>" method="POST" enctype="multipart/form-data">
-      <input type="file" name="myFileFromChat" accept="image/*">
-      <input type="submit" value="Submit">
+        <button id = "sendButton" type="submit">Send</button>
     </form>
     
     <span id = "key">
