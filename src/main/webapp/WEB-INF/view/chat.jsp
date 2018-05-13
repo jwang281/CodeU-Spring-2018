@@ -119,7 +119,6 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
     %>
       <li><strong><%= author %>:</strong> <%= resultDecimal %> <button onclick="playMsg('<%= text %>')">&#x1F50A;</button></li>
     <%
-
         //uses original str to validate url because the other strings contain extra stuff
 		if (urlValidator.isValid(str) || str.contains("http://localhost:8080/_ah/img/") ) {
 		   %>
