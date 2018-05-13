@@ -18,14 +18,19 @@ public class ProfileServletTest {
     private HttpServletRequest mockRequest;
     private HttpServletResponse mockResponse;
     private RequestDispatcher mockRequestDispatcher;
+    private HttpSession mockSession;
+    private UserStore mockUserStore;
 
     @Before
     public void setup() throws IOException
     {
         profileServlet = new ProfileServlet();
         mockRequest = Mockito.mock(HttpServletRequest.class);
+        mockSession = Mockito.mock(HttpSession.class);
+        Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
         mockResponse = Mockito.mock(HttpServletResponse.class);
         mockRequestDispatcher = Mockito.mock(RequestDispatcher.class);
+        mockUserStore = Mockito.mock(UserStore.class);
         Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/profile.jsp"))
                 .thenReturn(mockRequestDispatcher);
     }
@@ -33,9 +38,24 @@ public class ProfileServletTest {
     @Test
     public void testDoGet() throws IOException, ServletException
     {
+        Mockito.when(mockRequest.getRequestURI()).thenReturn("/profile/username_test");
+
+        User displayMockUser = Mockito.mock(User.class);
+        Mockito.when(displayMockUser.getName()).thenReturn("username_test");
+        Mockito.when(displayMockUser.getProfilePic()).thenReturn("profile_pic");
+
         User mockUser = Mockito.mock(User.class);
+        Mockito.when(mockUser.getName()).thenReturn("username2_test");
+
+        Mockito.when(mockRequest.getParameter("requestUrl")).thenReturn("/profile/username_test");
+        Mockito.when(mockRequest.getParameter("profileUserTitle")).thenReturn("username_test");
+        Mockito.when(mockSession.getAttribute("user")).thenReturn("username_test");
+
         Mockito.when(mockUser.getName()).thenReturn("username_test");
         Mockito.when(mockUser.getProfilePic()).thenReturn("profile_pic");
+        Mockito.when(mockUser.getUserBio()).thenReturn("bio");
+        Mockito.when(mockUser.getUserStatus()).thenReturn("status");
+
 
         UserStore mockUserStore = Mockito.mock(UserStore.class);
         Mockito.when(mockUserStore.getUser("username_test")).thenReturn(mockUser);

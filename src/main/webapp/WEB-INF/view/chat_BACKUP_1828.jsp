@@ -18,11 +18,14 @@
 <%@ page import = "org.commonmark.node.*" %>
 <%@ page import = "org.commonmark.parser.Parser" %>
 <%@ page import = "org.commonmark.renderer.html.HtmlRenderer"%>
+<<<<<<< HEAD
 <%@ page import = "org.jsoup.Jsoup" %>
+=======
 <%@ page import = "org.apache.commons.validator.routines.UrlValidator"%>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 
+>>>>>>> 64078252629b77d51bf2c560739aa9b4b0c3af33
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -41,8 +44,11 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.css">
   <script type="text/javascript" src="/js/jquery.emojipicker.js"></script>
+<<<<<<< HEAD
   <script src="/js/talkify.js"></script>
+=======
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+>>>>>>> 64078252629b77d51bf2c560739aa9b4b0c3af33
 
   <!-- Emoji Data -->
   <link rel="stylesheet" type="text/css" href="/css/jquery.emojipicker.a.css">
@@ -114,11 +120,14 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
         String renderedMessage = renderer.render(document);
         
         String result = EmojiParser.parseToUnicode(renderedMessage);	
+<<<<<<< HEAD
 		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);	  
 		String text = EmojiParser.parseToAliases(Jsoup.parse(renderedMessage).text());
     %>
       <li><strong><%= author %>:</strong> <%= resultDecimal %> <button onclick="playMsg('<%= text %>')">&#x1F50A;</button></li>
     <%
+=======
+		String resultDecimal = EmojiParser.parseToHtmlDecimal(result);
 
         //uses original str to validate url because the other strings contain extra stuff
 		if (urlValidator.isValid(str) || str.contains("http://localhost:8080/_ah/img/") ) {
@@ -136,6 +145,7 @@ String chatUploadUrl = "/uploadchat/" + conversation.getTitle();
               <li><a href="/profile/<%=author%>"><strong><%= author %>:</strong></a> <%= resultDecimal %> </li>
           <%
 	    }
+>>>>>>> 64078252629b77d51bf2c560739aa9b4b0c3af33
       }
     %>
       </ul>

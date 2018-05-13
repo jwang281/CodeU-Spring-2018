@@ -28,7 +28,8 @@
 <body>
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">
+    <img src = "https://drive.google.com/uc?id=1dG9V-sBNMS9hEivT4L-sn1M0m7RIn0Gr" width="160" height="80" /></a>
     <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
@@ -53,7 +54,7 @@
       <label for="password">Password: </label>
           <input type="password" name="password" id="password">
           <br/><br/>
-      <button type="submit">Login</button>
+      <button type="submit"class="w3-btn w3-green">Login</button>
     </form>
   </div>
 </body>
